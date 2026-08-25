@@ -1,0 +1,34 @@
+# Delta vs crowdsecurity/http-bad-user-agent — UA list from this repo (source_url).
+#
+# Optional: shorter ban than default ~4h — prepend to profiles.yaml.local:
+#   name: porta_unwanted_bots_remediation
+#   filters:
+#     - Alert.Remediation == true && Alert.GetScenario() == "porta/http-unwanted-bots"
+#   decisions:
+#     - type: ban
+#       duration: 1h
+#   on_success: break
+#   ---
+#
+type: leaky
+format: 2.0
+name: porta/http-unwanted-bots
+description: "Detect unwanted bots by User-Agent"
+filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] && RegexpInFile(evt.Parsed.http_user_agent, "unwanted-bots.regex.txt")'
+data:
+  - source_url: https://raw.githubusercontent.com/portadesign/crowdsec-library/main/web/unwanted-bots.regex.txt
+    dest_file: unwanted-bots.regex.txt
+    type: regexp
+groupby: "evt.Meta.source_ip"
+capacity: 5
+leakspeed: 12s
+blackhole: 5m
+labels:
+  remediation: true
+  classification:
+    - attack.T1595
+  behavior: "http:crawl"
+  label: "Unwanted Bot"
+  spoofable: 0
+  service: http
+  confidence: 2
