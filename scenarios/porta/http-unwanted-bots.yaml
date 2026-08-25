@@ -1,6 +1,7 @@
 # Delta vs crowdsecurity/http-bad-user-agent — UA list from this repo (source_url).
+# Default: CrowdSec remediation profile (~4h ban).
 #
-# Optional: shorter ban than default ~4h — prepend to profiles.yaml.local:
+# Optional — shorter ban than default ~4h: add to profiles.yaml.local:
 #   name: porta_unwanted_bots_remediation
 #   filters:
 #     - Alert.Remediation == true && Alert.GetScenario() == "porta/http-unwanted-bots"
@@ -19,10 +20,13 @@ data:
   - source_url: https://raw.githubusercontent.com/portadesign/crowdsec-library/main/web/unwanted-bots.regex.txt
     dest_file: unwanted-bots.regex.txt
     type: regexp
+    strategy: LRU
+    size: 40
+    ttl: 10s
 groupby: "evt.Meta.source_ip"
-capacity: 5
-leakspeed: 12s
-blackhole: 5m
+capacity: 1
+leakspeed: 1m
+blackhole: 2m
 labels:
   remediation: true
   classification:

@@ -9,6 +9,6 @@ Hub `crowdsecurity/http-bad-user-agent` already covers scanners and many scraper
 | Path | Purpose |
 |------|---------|
 | [`web/unwanted-bots.regex.txt`](web/unwanted-bots.regex.txt) | Regex list of unwanted User-Agents |
-| [`scenarios/porta/http-unwanted-bots.yaml`](scenarios/porta/http-unwanted-bots.yaml) | Leaky scenario (~5 req/min → remediation) |
+| [`scenarios/porta/http-unwanted-bots.yaml`](scenarios/porta/http-unwanted-bots.yaml) | Leaky scenario (ban on first UA match, same as hub http-bad-user-agent) |
 
 The regex list is fetched at runtime through the scenario `source_url`.
