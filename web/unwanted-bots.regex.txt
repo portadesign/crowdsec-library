@@ -4,6 +4,7 @@
 # Format: one RE2 regex per line (CrowdSec RegexpInFile).
 # Used by: scenarios/porta/http-unwanted-bots.yaml
 #
+\bImageBot/\S+
 \bSleepBot\b
 \bSemrushBot\b
 \bSemrushBot-BA\b
