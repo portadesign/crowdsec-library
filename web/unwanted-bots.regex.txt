@@ -2,7 +2,7 @@
 # and known to spam our sites. Do NOT duplicate hub entries (MJ12bot, Dotbot, …).
 #
 # Format: one RE2 regex per line (CrowdSec RegexpInFile).
-# Used by: scenarios/porta/http-unwanted-bots.yaml
+# Used by: porta/http-unwanted-bots (Dokploy Ansible role in docker-library)
 #
 \bImageBot/\S+
 \bSleepBot\b
